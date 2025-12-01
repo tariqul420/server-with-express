@@ -16,7 +16,7 @@ app.get("/", (req: Request, res: Response) => {
 });
 
 // routes
-app.use("/api/user", userRoutes);
+app.use("/api/users", userRoutes);
 
 // Unhandled Routes
 app.use((req, res, next) => {
