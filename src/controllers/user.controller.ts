@@ -12,7 +12,7 @@ export const createUser = async (req: Request, res: Response) => {
     );
 
     res.status(201).json({
-      success: false,
+      success: true,
       message: "Data inserted successfully.",
       data: results.rows[0],
     });
