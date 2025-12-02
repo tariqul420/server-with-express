@@ -1,6 +1,7 @@
 import express, { Request, Response } from "express";
 import db from "./config/db";
-import userRoutes from "./features/user/user.routes";
+import todoRoutes from "./features/todo/todo.route";
+import userRoutes from "./features/user/user.route";
 import { errorHandler } from "./middlewares/error.middleware";
 
 // Express app initialization
@@ -16,6 +17,7 @@ app.get("/", (req: Request, res: Response) => {
 
 // routes
 app.use("/api/users", userRoutes);
+app.use("/api/todos", todoRoutes);
 
 // Unhandled Routes
 app.use((req, res, next) => {
