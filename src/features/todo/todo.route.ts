@@ -6,4 +6,4 @@ const router = Router();
 // routes
 router.post("/", todoController.create);
 
-export default router;
+export const todoRoutes = router;
