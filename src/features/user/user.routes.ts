@@ -7,7 +7,7 @@ const router = Router();
 router.post("/", userController.create);
 router.get("/", userController.getAll);
 router.get("/:id", userController.getSingle);
-router.put(":/id", userController.update);
+router.put("/:id", userController.update);
 router.delete("/:id", userController.delete);
 
 
