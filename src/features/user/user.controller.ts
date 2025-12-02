@@ -5,13 +5,35 @@ import { userService } from "./user.service";
 export const userController = {
   async getAll(req: Request, res: Response, next: NextFunction) {
     try {
-      const users = await userService.getAll();
+      const results = await userService.getAll();
 
       res.status(200).json({
         success: true,
         message: "Users retrieved successfully",
-        data: users.rows,
+        data: results.rows,
       });
+    } catch (error) {
+      next(error);
+    }
+  },
+
+  async getSingle(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { id } = req.params;
+      const result = await userService.getSingle(id as string);
+
+      if (result.rows.length === 0) {
+        res.status(404).json({
+          success: false,
+          message: "User not found",
+        });
+      } else {
+        res.status(200).json({
+          success: true,
+          message: "User fetched successfully",
+          data: result.rows[0],
+        });
+      }
     } catch (error) {
       next(error);
     }
@@ -33,34 +55,6 @@ export const createUser = async (req: Request, res: Response) => {
       message: "Data inserted successfully.",
       data: results.rows[0],
     });
-  } catch (error: any) {
-    res.status(500).json({
-      success: false,
-      message: error.message,
-      details: error,
-    });
-  }
-};
-
-// get a single user
-export const getSingleUser = async (req: Request, res: Response) => {
-  try {
-    const { id } = req.params;
-
-    const result = await pool.query(`SELECT * FROM users WHERE ID = $1`, [id]);
-
-    if (result.rows.length === 0) {
-      res.status(404).json({
-        success: false,
-        message: "User not found",
-      });
-    } else {
-      res.status(200).json({
-        success: true,
-        message: "User fetched successfully",
-        data: result.rows[0],
-      });
-    }
   } catch (error: any) {
     res.status(500).json({
       success: false,
