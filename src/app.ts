@@ -24,7 +24,7 @@ app.use((req, res, next) => {
   next(error);
 });
 
-// Global error handler (should be after routes)
+// Global error handler
 app.use(errorHandler);
 
 export default app;

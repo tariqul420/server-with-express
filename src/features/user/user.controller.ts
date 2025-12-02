@@ -1,5 +1,22 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { pool } from "../../config/db";
+import { userService } from "./user.service";
+
+export const userController = {
+  async getAll(req: Request, res: Response, next: NextFunction) {
+    try {
+      const users = await userService.getAll();
+
+      res.status(200).json({
+        success: true,
+        message: "Users retrieved successfully",
+        data: users.rows,
+      });
+    } catch (error) {
+      next(error);
+    }
+  },
+};
 
 // create user
 export const createUser = async (req: Request, res: Response) => {
@@ -15,25 +32,6 @@ export const createUser = async (req: Request, res: Response) => {
       success: true,
       message: "Data inserted successfully.",
       data: results.rows[0],
-    });
-  } catch (error: any) {
-    res.status(500).json({
-      success: false,
-      message: error.message,
-      details: error,
-    });
-  }
-};
-
-// get all users
-export const getAllUser = async (req: Request, res: Response) => {
-  try {
-    const results = await pool.query(`SELECT * FROM users`);
-
-    res.status(200).json({
-      success: true,
-      message: "Users retrieved successfully.",
-      data: results.rows,
     });
   } catch (error: any) {
     res.status(500).json({
