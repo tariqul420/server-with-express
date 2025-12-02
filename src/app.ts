@@ -1,7 +1,7 @@
 import express, { Request, Response } from "express";
 import db from "./config/db";
-import { errorHandler } from "./middleware/error.middleware";
-import userRoutes from "./routes/user.route";
+import userRoutes from "./features/user/user.routes";
+import { errorHandler } from "./middlewares/error.middleware";
 
 // Express app initialization
 const app = express();
