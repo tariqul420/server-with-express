@@ -26,11 +26,11 @@ export const userService = {
   },
 
   async update(id: string, payload: Record<string, unknown>) {
-    const { name, age, phone, address } = payload;
+    const { age, phone, address } = payload;
 
     return await pool.query(
-      `UPDATE users SET name=$1, age=$2, phone=$3, address=$4 WHERE id=$5 RETURNING *`,
-      [name, age, phone, address, id]
+      `UPDATE users SET age=$1, phone=$2, address=$3 WHERE id=$4 RETURNING *`,
+      [age, phone, address, id]
     );
   },
 };
