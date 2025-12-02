@@ -17,11 +17,20 @@ export const userService = {
     return await pool.query(`SELECT * FROM users`);
   },
 
-  async getSingle(id: number | string) {
+  async getSingle(id: string) {
     return await pool.query(`SELECT * FROM users WHERE id = $1`, [id]);
   },
 
-  async delete(id: number | string) {
+  async delete(id: string) {
     return await pool.query(`DELETE FROM users WHERE id = $1`, [id]);
+  },
+
+  async update(id: string, payload: Record<string, unknown>) {
+    const { name, age, phone, address } = payload;
+
+    return await pool.query(
+      `UPDATE users SET name=$1, age=$2, phone=$3, address=$4 WHERE id=$5 RETURNING *`,
+      [name, age, phone, address, id]
+    );
   },
 };

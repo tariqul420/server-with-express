@@ -52,6 +52,29 @@ export const userController = {
     }
   },
 
+  async update(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { id } = req.params;
+
+      const result = await userService.update(id, req.body);
+
+      if (result.rows.length === 0) {
+        res.status(404).json({
+          success: false,
+          message: "User not found",
+        });
+      } else {
+        res.status(200).json({
+          success: true,
+          message: "User updated successfully",
+          data: result.rows[0],
+        });
+      }
+    } catch (error) {
+      next(error);
+    }
+  },
+
   async delete(req: Request, res: Response, next: NextFunction) {
     try {
       const { id } = req.params;
