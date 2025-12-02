@@ -3,13 +3,12 @@ import { userController } from "./user.controller";
 
 const router = Router();
 
-// create a new user
-router.post("/create", userController.create);
-
-// get all users
+// routes
+router.post("/", userController.create);
 router.get("/", userController.getAll);
-
-// get a single user
 router.get("/:id", userController.getSingle);
+router.delete("/:id", userController.delete);
+
+
 
 export default router;

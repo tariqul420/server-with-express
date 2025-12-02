@@ -51,4 +51,27 @@ export const userController = {
       next(error);
     }
   },
+
+  async delete(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { id } = req.params;
+
+      const result = await userService.delete(id);
+
+      if (result.rowCount === 0) {
+        res.status(404).json({
+          success: false,
+          message: "User not found",
+        });
+      } else {
+        res.status(200).json({
+          success: true,
+          message: "User deleted successfully",
+          data: result.rows,
+        });
+      }
+    } catch (error) {
+      next(error);
+    }
+  },
 };
