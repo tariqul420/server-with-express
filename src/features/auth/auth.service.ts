@@ -17,10 +17,10 @@ export const authService = {
 
     if (!match) return false;
 
-    const { name, email: userEmail, role } = user;
+    const { email: userEmail, role } = user;
 
     const token = jwt.sign(
-      { name, email: userEmail, role },
+      { email: userEmail, role },
       config.jwtSecret as string,
       {
         expiresIn: "7d",
