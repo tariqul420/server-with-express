@@ -5,7 +5,7 @@ import { todoRoutes } from "./features/todo/todo.route";
 import { userRoutes } from "./features/user/user.route";
 import { errorHandler } from "./middlewares/error.middleware";
 
-// Express app initialization
+// app initialization
 const app = express();
 app.use(express.json());
 
